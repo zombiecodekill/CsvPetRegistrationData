@@ -1,21 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 
 namespace PetReporting
 {
     public class CsvReport
     {
         private PetEntries _petEntries;
-        public CsvReport(PetEntries petEntries)
+        private IFileWriter _fileWriter;
+
+        public CsvReport(PetEntries petEntries, IFileWriter fileWriter)
         {
             _petEntries = petEntries;
+            _fileWriter = fileWriter;
         }
 
-        public void printReport(IEnumerable<PetEntry> petEntry, string filename)
+        public void printPetEntries(IEnumerable<PetEntry> petEntry, string filename)
         {
             var entries = _petEntries.ConvertPetEntriesToCommaDelimitedStrings(petEntry);
-            File.WriteAllLines(filename, entries.ToArray());
+            _fileWriter.WriteAllLines(filename, entries);
         }
     }
 }
