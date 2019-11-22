@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using System.Collections.Generic;
 using NSubstitute;
 
@@ -9,25 +9,33 @@ namespace PetReporting.Tests
     {
         private CsvReport _target;
         private PetEntries _petEntries;
+        private IFileWriter _fileWriter;
+        private List<string> _dummyData;
 
         [SetUp]
         public void Init()
         {
+            _dummyData = new List<string>() { "Tony Smith,13/07/1985 00:00:00,10" };
+
             _petEntries = Substitute.For<PetEntries>();
-            _target = new CsvReport(_petEntries);
+            _petEntries.ConvertPetEntriesToCommaDelimitedStrings(Arg.Any<IEnumerable<PetEntry>>())
+                .Returns(_dummyData);
+
+            _fileWriter = Substitute.For<IFileWriter>();
+            _target = new CsvReport(_petEntries, _fileWriter);
         }
 
         [Test]
-        public void CsvReportCallsConvertPetEntriesToCommaDelimitedStrings()
+        public void printPetEntriesCallsFileWriter()
         {
             // Arrange
             var entries = new List<PetEntry>();
 
             // Act
-            _target.printReport(entries, "csvReport.csv");
+            _target.printPetEntries(entries, "petRegistrationDetails.csv");
 
             // Assert
-            _petEntries.Received().ConvertPetEntriesToCommaDelimitedStrings(entries);
+            _fileWriter.Received().WriteAllLines("petRegistrationDetails.csv", _dummyData);
         }
     }
 }
