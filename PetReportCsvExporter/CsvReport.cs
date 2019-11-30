@@ -11,9 +11,9 @@ namespace PetReportCsvExporter
             _fileWriter = fileWriter;
         }
 
-        public void PrintPetEntries(IEnumerable<PetEntry> petEntry, string filename)
+        public void PrintPetEntries(List<PetEntryModel> petEntry, string filename)
         {
-            var entries = PetEntries.ConvertPetEntriesToCommaDelimitedStrings(petEntry);
+            var entries = CommaDelimitedStringBuilder.ConvertPetEntriesToCommaDelimitedStrings(petEntry);
             _fileWriter.WriteAllLines(filename, entries);
         }
     }

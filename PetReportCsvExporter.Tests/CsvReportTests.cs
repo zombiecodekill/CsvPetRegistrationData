@@ -21,7 +21,7 @@ namespace PetReportCsvExporter.Tests
         public void PrintPetEntriesCallsFileWriter()
         {
             // Arrange
-            var entries = new List<PetEntry>();
+            var entries = new List<PetEntryModel>();
 
             // Act
             _target.PrintPetEntries(entries, "petRegistrationDetails.csv");
