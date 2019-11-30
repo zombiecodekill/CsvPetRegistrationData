@@ -2,9 +2,9 @@
 
 namespace PetReporting
 {
-    public class PetEntries
+    public static class PetEntries
     {
-        public List<string> ConvertPetEntriesToCommaDelimitedStrings(IEnumerable<PetEntry> petEntries)
+        public static List<string> ConvertPetEntriesToCommaDelimitedStrings(IEnumerable<PetEntry> petEntries)
         {
             List<string> entries = new List<string>();
             entries.Add("Owners name,Date Joined Practice,Number Of Visits,Number of Lives");

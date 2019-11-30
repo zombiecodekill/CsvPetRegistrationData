@@ -36,7 +36,7 @@ namespace PetReporting.Tests
             };
 
             // Act
-            var result = new PetEntries().ConvertPetEntriesToCommaDelimitedStrings(pets);
+            var result = PetEntries.ConvertPetEntriesToCommaDelimitedStrings(pets);
 
             Assert.That(result.Count, Is.EqualTo(4));
             Assert.That(result[0], Is.EqualTo("Owners name,Date Joined Practice,Number Of Visits,Number of Lives"));
